@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsStar, BsWindow } from 'react-icons/all';
+import { BsStar } from 'react-icons/all';
 import Badge from './Badge.component';
 
 const Story = {

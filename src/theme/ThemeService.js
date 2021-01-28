@@ -14,10 +14,14 @@ class ThemeService {
       baseTheme[color] && baseTheme[color][variation]
         ? new Color(baseTheme[color][variation])
         : new Color(color);
-    const baseTextColor =
-      baseTheme.text && baseTheme.text.light
-        ? new Color(baseTheme.text.light)
-        : new Color(color);
+    let baseTextColor = baseColor.luminosity() > 0.7
+      ? new Color('black')
+      : new Color('white');
+    if (baseTheme.text && baseTheme.text.light && baseTheme.text.dark) {
+      baseTextColor = baseColor.luminosity() > 0.7
+        ? new Color(baseTheme.text.dark)
+        : new Color(baseTheme.text.light);
+    }
 
     return [baseColor, baseTextColor];
   };
