@@ -35,7 +35,7 @@ class ThemeService {
       default:
         return BaseFilledButton;
     }
-  }
+  };
 
   static getIconButtonSize = (size) => {
     switch (size) {
@@ -44,21 +44,21 @@ class ThemeService {
           padding: '.486rem',
           lineHeight: '1',
           fontSize: '.9rem'
-        }
+        };
       case 'large':
         return {
           padding: '.8rem',
           lineHeight: '1.25',
           fontSize: '1.25rem'
-        }
+        };
       default:
         return {
           padding: '.786rem',
           lineHeight: '1',
           fontSize: '1rem'
-        }
+        };
     }
-  }
+  };
 
   static getButtonSize = (size) => {
     switch (size) {
@@ -67,21 +67,21 @@ class ThemeService {
           padding: '.486rem 1rem',
           lineHeight: '1',
           fontSize: '.9rem'
-        }
+        };
       case 'large':
         return {
           padding: '.8rem 2rem',
           lineHeight: '1.25',
           fontSize: '1.25rem'
-        }
+        };
       default:
         return {
           padding: '.786rem 1.5rem',
           lineHeight: '1',
           fontSize: '1rem'
-        }
+        };
     }
-  }
+  };
 
   static getReliefButtonStyle = (color, active, theme, colorVariation) => {
     const [baseColor, baseTextColor] = ThemeService.getBaseAttributes(
@@ -93,8 +93,8 @@ class ThemeService {
       mainText: baseTextColor.hex(),
       mainBg: active ? baseColor.darken(0.1).hex() : baseColor.hex(),
       hoverBg: baseColor.lighten(0.05).hex(),
-      activeBg: baseColor.darken(0.1).hex(),
-    }
+      activeBg: baseColor.darken(0.1).hex()
+    };
   };
 
   static getGradientButtonStyle = (color, active, theme, colorVariation) => {
@@ -108,7 +108,7 @@ class ThemeService {
       mainLightBg: active ? baseColor.hex() : baseColor.lighten(0.2).hex(),
       mainDarkBg: active ? baseColor.darken(0.2).hex() : baseColor.hex(),
       activeLightBg: baseColor.hex(),
-      activeDarkBg:  baseColor.darken(0.2).hex()
+      activeDarkBg: baseColor.darken(0.2).hex()
     };
   };
 
@@ -141,6 +141,19 @@ class ThemeService {
         ? baseColor.alpha(0.15).rgb().string()
         : baseColor.alpha(0.05).rgb().string(),
       activeBg: baseColor.alpha(0.15).rgb().string()
+    };
+  };
+
+  static getBadgeStyle = (theme, color, colorVariation, light) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseAttributes(
+      color,
+      theme,
+      colorVariation
+    );
+    return {
+      bg: light ? baseColor.alpha(0.13).rgb().string() : baseColor.hex(),
+      text: light ? baseColor.hex() : baseTextColor.hex(),
+      boxShadow: baseColor.hex()
     };
   };
 }

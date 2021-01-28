@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ThemeService from '../../theme/ThemeService';
-import Ripple from '../Effects/Ripple';
+import BaseContentWrapper from '../Base/BaseContentWrapper';
 
 const Button = ({
   variant,
@@ -29,21 +29,13 @@ const Button = ({
     `;
   }
 
-  const ButtonContentWrapper = styled.div`
-    display: flex;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    gap: .45rem;
-    flex-direction: row;
-  `;
 
   return (
     <StyledButton {...rest}>
-      <ButtonContentWrapper>
+      <BaseContentWrapper>
         {icon}
         {children}
-      </ButtonContentWrapper>
+      </BaseContentWrapper>
     </StyledButton>
   );
 };
