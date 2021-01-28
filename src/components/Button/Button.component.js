@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import ThemeService from '../../theme/ThemeService';
+import Ripple from '../Effects/Ripple';
 
 const Button = ({
   variant,
