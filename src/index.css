@@ -1,15 +1,15 @@
 html {
-  letter-spacing: .01rem;
+  letter-spacing: 0.01rem;
   font-size: 14px;
 }
 
 body {
   margin: 0;
-  font-family: "Montserrat", Helvetica,Arial,serif;
+  font-family: 'Montserrat', Helvetica, Arial, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: "Montserrat",Helvetica,Arial,serif;
+  font-family: 'Montserrat', Helvetica, Arial, serif;
 }

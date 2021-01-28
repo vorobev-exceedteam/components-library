@@ -1,13 +1,13 @@
 import React from 'react';
 import Button from './Button.component';
-import {BsHouseDoor} from 'react-icons/all'
+import { BsHouseDoor } from 'react-icons/all';
 
 const Story = {
   title: 'UI/Components/Button',
   component: Button
 };
 
-const testIcon = <BsHouseDoor/>
+const testIcon = <BsHouseDoor />;
 
 const ButtonColorGroup = (args) => (
   <div
@@ -43,7 +43,7 @@ const ButtonColorGroup = (args) => (
   </div>
 );
 
-const ButtonVariantsGroup= (args) => (
+const ButtonVariantsGroup = (args) => (
   <div
     style={{
       display: 'flex',
@@ -67,7 +67,6 @@ const ButtonVariantsGroup= (args) => (
     </Button>
   </div>
 );
-
 
 export const Filled = ButtonColorGroup.bind({});
 
@@ -94,6 +93,11 @@ FilledLarge.args = {
 export const FilledSmall = ButtonColorGroup.bind({});
 FilledSmall.args = {
   size: 'small'
+};
+
+export const FilledFullWidth = ButtonColorGroup.bind({});
+FilledFullWidth.args = {
+  fullWidth: true
 };
 
 export const Outlined = ButtonColorGroup.bind({});
@@ -131,6 +135,12 @@ OutlinedSmall.args = {
   size: 'small'
 };
 
+export const OutlineFullWidth = ButtonColorGroup.bind({});
+OutlineFullWidth.args = {
+  ...Outlined.args,
+  fullWidth: true
+};
+
 export const Flat = ButtonColorGroup.bind({});
 Flat.args = {
   variant: 'flat'
@@ -164,6 +174,12 @@ export const FlatSmall = ButtonColorGroup.bind({});
 FlatSmall.args = {
   ...Flat.args,
   size: 'small'
+};
+
+export const FlatFullWidth = ButtonColorGroup.bind({});
+FlatFullWidth.args = {
+  ...Flat.args,
+  fullWidth: true
 };
 
 export const Gradient = ButtonColorGroup.bind({});
@@ -236,40 +252,39 @@ ReliefSmall.args = {
   size: 'small'
 };
 
-export const WithIcon = ButtonVariantsGroup.bind({})
+export const WithIcon = ButtonVariantsGroup.bind({});
 WithIcon.args = {
   icon: testIcon
-}
+};
 
-export const WithIconDisabled = ButtonVariantsGroup.bind({})
+export const WithIconDisabled = ButtonVariantsGroup.bind({});
 WithIconDisabled.args = {
   ...WithIcon.args,
   disabled: true
-}
+};
 
-export const WithIconActive = ButtonVariantsGroup.bind({})
+export const WithIconActive = ButtonVariantsGroup.bind({});
 WithIconActive.args = {
   ...WithIcon.args,
   active: true
-}
+};
 
-export const WithIconPill = ButtonVariantsGroup.bind({})
+export const WithIconPill = ButtonVariantsGroup.bind({});
 WithIconPill.args = {
   ...WithIcon.args,
   pill: true
-}
+};
 
-export const WithIconLarge = ButtonVariantsGroup.bind({})
+export const WithIconLarge = ButtonVariantsGroup.bind({});
 WithIconLarge.args = {
   ...WithIcon.args,
   size: 'large'
-}
+};
 
-export const WithIconSmall = ButtonVariantsGroup.bind({})
+export const WithIconSmall = ButtonVariantsGroup.bind({});
 WithIconSmall.args = {
   ...WithIcon.args,
   size: 'small'
-}
-
+};
 
 export default Story;

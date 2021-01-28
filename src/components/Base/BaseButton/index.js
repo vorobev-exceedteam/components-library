@@ -4,9 +4,9 @@ import defaultTheme from '../../../theme/defaultTheme';
 const BaseButton = styled.button`
   outline: none;
   display: inline-block;
+  width: ${({fullWidth}) => fullWidth? '100%' : 'auto'};
   box-shadow: none;
-  text-align: center;
-  padding: 0.786rem 1.5rem;
+  text-align-all: center;
   border: 1px solid transparent;
   border-radius: 0.358rem;
   font-weight: 500;
@@ -14,8 +14,6 @@ const BaseButton = styled.button`
     theme.text ? theme.text.dark : defaultTheme.text.dark};
   vertical-align: middle;
   user-select: none;
-  font-size: 1rem;
-  line-height: 1;
   -webkit-transition: color 0.15s ease-in-out,
     background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
     background 0s, border 0s, -webkit-box-shadow 0.15s ease-in-out;

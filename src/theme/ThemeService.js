@@ -1,4 +1,9 @@
 import Color from 'color';
+import BaseFilledButton from '../components/Base/BaseFilledButton';
+import BaseFlatButton from '../components/Base/BaseFlatButton';
+import BaseGradientButton from '../components/Base/BaseGradientButton';
+import BaseOutlinedButton from '../components/Base/BaseOutlinedButton';
+import BaseReliefButton from '../components/Base/BaseReliefButton';
 import defaultTheme from './defaultTheme';
 
 class ThemeService {
@@ -9,7 +14,6 @@ class ThemeService {
       baseTheme[color] && baseTheme[color][variation]
         ? new Color(baseTheme[color][variation])
         : new Color(color);
-    // todo make dependent on bg
     const baseTextColor =
       baseTheme.text && baseTheme.text.light
         ? new Color(baseTheme.text.light)
@@ -17,6 +21,44 @@ class ThemeService {
 
     return [baseColor, baseTextColor];
   };
+
+  static getButtonVariant = (variant) => {
+    switch (variant) {
+      case 'flat':
+        return BaseFlatButton;
+      case 'outlined':
+        return BaseOutlinedButton;
+      case 'relief':
+        return BaseReliefButton;
+      case 'gradient':
+        return BaseGradientButton;
+      default:
+        return BaseFilledButton;
+    }
+  }
+
+  static getIconButtonSize = (size) => {
+    switch (size) {
+      case 'small':
+        return {
+          padding: '.486rem',
+          lineHeight: '1',
+          fontSize: '.9rem'
+        }
+      case 'large':
+        return {
+          padding: '.8rem',
+          lineHeight: '1.25',
+          fontSize: '1.25rem'
+        }
+      default:
+        return {
+          padding: '.786rem',
+          lineHeight: '1',
+          fontSize: '1rem'
+        }
+    }
+  }
 
   static getButtonSize = (size) => {
     switch (size) {
@@ -49,9 +91,9 @@ class ThemeService {
     );
     return {
       mainText: baseTextColor.hex(),
-      mainBg: active ? baseColor.darken(0.2).hex() : baseColor.hex(),
+      mainBg: active ? baseColor.darken(0.1).hex() : baseColor.hex(),
       hoverBg: baseColor.lighten(0.05).hex(),
-      activeBg: baseColor.darken(0.2).hex(),
+      activeBg: baseColor.darken(0.1).hex(),
     }
   };
 
@@ -66,7 +108,7 @@ class ThemeService {
       mainLightBg: active ? baseColor.hex() : baseColor.lighten(0.2).hex(),
       mainDarkBg: active ? baseColor.darken(0.2).hex() : baseColor.hex(),
       activeLightBg: baseColor.hex(),
-      activeDarkBg: baseColor.darken(0.2).hex()
+      activeDarkBg:  baseColor.darken(0.2).hex()
     };
   };
 
@@ -78,12 +120,13 @@ class ThemeService {
     );
     return {
       mainText: baseTextColor.hex(),
+      main: baseColor.hex(),
       mainBg: active ? baseColor.darken(0.1).hex() : baseColor.hex(),
       activeBg: baseColor.darken(0.1).hex()
     };
   };
 
-  static getOutlinedButtonStyle = (color, active, theme, colorVariation) => {
+  static getFlatButtonStyle = (color, active, theme, colorVariation) => {
     const [baseColor] = ThemeService.getBaseAttributes(
       color,
       theme,
