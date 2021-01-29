@@ -64,4 +64,34 @@ WithIcon.args = {
   icon: <BsStar/>
 };
 
+export const DefaultButton = Badges.bind({});
+DefaultButton.args = {
+  button:true
+}
+
+export const GlowingButton = Badges.bind({});
+GlowingButton.args = {
+  ...DefaultButton.args,
+  glow: true
+};
+
+export const LightButton = Badges.bind({});
+LightButton.args = {
+  ...DefaultButton.args,
+  light: true
+};
+
+export const LightGlowingButton = Badges.bind({});
+LightGlowingButton.args = {
+  ...DefaultButton.args,
+  glow: true,
+  light: true
+};
+
+export const WithIconButton = Badges.bind({});
+WithIconButton.args = {
+  ...DefaultButton.args,
+  icon: <BsStar/>
+};
+
 export default Story;

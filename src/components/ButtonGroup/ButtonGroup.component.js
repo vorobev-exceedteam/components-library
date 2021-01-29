@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const ButtonGroupWrapper = styled.div`
+    position: relative;
+    display: inline-flex;
+    vertical-align: middle;
+    width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+    background-image: none;
+  `;
+
+// todo fix button group
+
 const ButtonGroup = ({
   children,
   disabled,
@@ -15,13 +25,7 @@ const ButtonGroup = ({
   ...rest
 }) => {
 
-  const ButtonGroupWrapper = styled.div`
-    position: relative;
-    display: inline-flex;
-    vertical-align: middle;
-    width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
-    background-image: none;
-  `;
+
 
   const [activationStates, setActivationStates] = React.useState([]);
 

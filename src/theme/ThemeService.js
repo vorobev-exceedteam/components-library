@@ -1,4 +1,4 @@
-import Color from 'color';
+import chroma from 'chroma-js';
 import BaseFilledButton from '../components/Base/BaseFilledButton';
 import BaseFlatButton from '../components/Base/BaseFlatButton';
 import BaseGradientButton from '../components/Base/BaseGradientButton';
@@ -12,15 +12,15 @@ class ThemeService {
     const baseTheme = theme[color] ? theme : defaultTheme;
     const baseColor =
       baseTheme[color] && baseTheme[color][variation]
-        ? new Color(baseTheme[color][variation])
-        : new Color(color);
+        ? chroma(baseTheme[color][variation])
+        : chroma(color);
     let baseTextColor =
-      baseColor.luminosity() > 0.7 ? new Color('black') : new Color('white');
+      baseColor.luminance() > 0.7 ? chroma('black') : chroma('white');
     if (baseTheme.text && baseTheme.text.light && baseTheme.text.dark) {
       baseTextColor =
-        baseColor.luminosity() > 0.7
-          ? new Color(baseTheme.text.dark)
-          : new Color(baseTheme.text.light);
+        baseColor.luminance() > 0.7
+          ? chroma(baseTheme.text.dark)
+          : chroma(baseTheme.text.light);
     }
 
     return [baseColor, baseTextColor];
@@ -32,8 +32,8 @@ class ThemeService {
     if (['gradient, relief'].includes(variant)) {
       options.disabled = true;
     }
-    const color = new Color(ref.current.style.color);
-    options.rippleColor = color.alpha(0.3).rgb().string();
+    const color = chroma(ref.current.style.color);
+    options.rippleColor = color.alpha(0.15).css();
     return options;
   };
 
@@ -106,9 +106,9 @@ class ThemeService {
     );
     return {
       mainText: baseTextColor.hex(),
-      mainBg: active ? baseColor.darken(0.1).hex() : baseColor.hex(),
-      hoverBg: baseColor.lighten(0.05).hex(),
-      activeBg: baseColor.darken(0.1).hex()
+      mainBg: active ? baseColor.darken(0.5).hex() : baseColor.hex(),
+      hoverBg: baseColor.brighten(0.2).hex(),
+      activeBg: baseColor.darken().hex()
     };
   };
 
@@ -120,10 +120,10 @@ class ThemeService {
     );
     return {
       mainText: baseTextColor.hex(),
-      mainLightBg: active ? baseColor.hex() : baseColor.lighten(0.2).hex(),
-      mainDarkBg: active ? baseColor.darken(0.2).hex() : baseColor.hex(),
+      mainLightBg: active ? baseColor.hex() : baseColor.brighten().hex(),
+      mainDarkBg: active ? baseColor.darken().hex() : baseColor.hex(),
       activeLightBg: baseColor.hex(),
-      activeDarkBg: baseColor.darken(0.2).hex()
+      activeDarkBg: baseColor.darken().hex()
     };
   };
 
@@ -136,8 +136,8 @@ class ThemeService {
     return {
       mainText: baseTextColor.hex(),
       main: baseColor.hex(),
-      mainBg: active ? baseColor.darken(0.1).hex() : baseColor.hex(),
-      activeBg: baseColor.darken(0.1).hex()
+      mainBg: active ? baseColor.darken(0.5).hex() : baseColor.hex(),
+      activeBg: baseColor.darken(0.5).hex()
     };
   };
 
@@ -149,13 +149,13 @@ class ThemeService {
     );
     return {
       mainBg: active
-        ? baseColor.alpha(0.15).rgb().string()
-        : baseColor.alpha(0).rgb().string(),
+        ? baseColor.alpha(0.15).css()
+        : baseColor.alpha(0).css(),
       main: baseColor.hex(),
       hoverBg: active
-        ? baseColor.alpha(0.15).rgb().string()
-        : baseColor.alpha(0.05).rgb().string(),
-      activeBg: baseColor.alpha(0.15).rgb().string()
+        ? baseColor.alpha(0.15).css()
+        : baseColor.alpha(0.05).css(),
+      activeBg: baseColor.alpha(0.15).css()
     };
   };
 
@@ -166,7 +166,8 @@ class ThemeService {
       colorVariation
     );
     return {
-      bg: light ? baseColor.alpha(0.13).rgb().string() : baseColor.hex(),
+      bg: light ? baseColor.alpha(0.13).css() : baseColor.hex(),
+      hoverBg: light ? baseColor.alpha(0.2).css() : baseColor.darken(0.5).hex(),
       text: light ? baseColor.hex() : baseTextColor.hex(),
       boxShadow: baseColor.hex()
     };

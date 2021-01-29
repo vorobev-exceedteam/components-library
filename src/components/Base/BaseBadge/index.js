@@ -29,6 +29,11 @@ const BaseBadge = styled.div.attrs((props) => ({
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background 0s,
     border 0s, -webkit-box-shadow 0.15s ease-in-out;
+  &:hover {
+    background-color: ${({button, bg, hoverBg}) => button? hoverBg : bg};
+    cursor: ${({button}) => button? 'pointer' : 'auto'};
+    pointer-events:  ${({button}) => button? '' : 'auto'};
+  }
 `;
 
 export default BaseBadge;
