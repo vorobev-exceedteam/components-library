@@ -10,7 +10,7 @@ if (typeof document !== 'undefined') {
   const keyframes = `
     @keyframes use-ripple-animation {
       from {
-        opacity: 1;
+        opacity: 0.5;
         transform: scale(0);
       }
       to {

@@ -1,14 +1,29 @@
 import styled from 'styled-components';
 import defaultTheme from '../../../theme/defaultTheme';
+import ThemeService from '../../../theme/ThemeService';
 
-const BaseButton = styled.button`
+const BaseButton = styled.button.attrs((props) => {
+  const sizes = props.iconButton
+    ? ThemeService.getIconButtonSize(props.size)
+    : ThemeService.getButtonSize(props.size);
+  const roundBorderSize = props.iconButton ? '100%' : '50rem';
+  return {
+    roundBorderSize,
+    ...sizes,
+    ...props
+  };
+})`
   outline: none;
+  font-size: ${({ fontSize }) => fontSize};
+  line-height: ${({ lineHeight }) => lineHeight};
+  padding: ${({ padding }) => padding};
   display: inline-block;
-  width: ${({fullWidth}) => fullWidth? '100%' : 'auto'};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   box-shadow: none;
   text-align-all: center;
   border: 1px solid transparent;
-  border-radius: 0.358rem;
+  border-radius: ${({ round, roundBorderSize }) =>
+    round ? roundBorderSize : '.358rem'};
   font-weight: 500;
   color: ${({ theme }) =>
     theme.text ? theme.text.dark : defaultTheme.text.dark};

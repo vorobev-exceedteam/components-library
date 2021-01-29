@@ -1,29 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useRipple } from '../../hooks/useRipple';
 import ThemeService from '../../theme/ThemeService';
 
-const IconButton = ({ size, variant, round, ...rest }) => {
+const IconButton = ({ variant, ...rest }) => {
 
-  let StyledIconButton = ThemeService.getButtonVariant(variant);
+  const StyledIconButton = ThemeService.getButtonVariant(variant);
 
-  StyledIconButton = styled(StyledIconButton).attrs((props) => ({
-    ...ThemeService.getIconButtonSize(size),
-    ...props
-  }))`
-    font-size: ${({ fontSize }) => fontSize};
-    line-height: ${({ lineHeight }) => lineHeight};
-    padding: ${({ padding }) => padding};
-  `
+  const ref = React.useRef();
 
-  if (round) {
-    StyledIconButton = styled(StyledIconButton)`
-      border-radius: 100%;
-    `;
-  }
+  useRipple(ref, { disabled: ['relief', 'gradient'].includes(variant) });
 
-
-
-  return <StyledIconButton {...rest}/>;
+  return <StyledIconButton iconButton ref={ref} {...rest}/>;
 };
 
 export default React.memo(IconButton);

@@ -1,6 +1,19 @@
 import styled from 'styled-components';
+import ThemeService from '../../../theme/ThemeService';
 
-const BaseBadge = styled.div`
+const BaseBadge = styled.div.attrs((props) => ({
+  ...ThemeService.getBadgeStyle(
+    props.theme,
+    props.color,
+    props.colorVariant,
+    props.light
+  ),
+  ...props
+}))`
+  background-color: ${({ bg }) => bg};
+  color: ${({ text }) => text};
+  box-shadow: ${({ glow, boxShadow }) =>
+          glow ? `0 0 10px ${boxShadow}` : `none`};
   display: inline-block;
   padding: .3rem .5rem;
   text-align: center;

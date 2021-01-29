@@ -72,7 +72,7 @@ export const Filled = ButtonColorGroup.bind({});
 
 export const FilledPill = ButtonColorGroup.bind({});
 FilledPill.args = {
-  pill: true
+  round: true
 };
 
 export const FilledActive = ButtonColorGroup.bind({});
@@ -108,7 +108,7 @@ Outlined.args = {
 export const OutlinedPill = ButtonColorGroup.bind({});
 OutlinedPill.args = {
   ...Outlined.args,
-  pill: true
+  round: true
 };
 
 export const OutlinedActive = ButtonColorGroup.bind({});
@@ -149,7 +149,7 @@ Flat.args = {
 export const FlatPill = ButtonColorGroup.bind({});
 FlatPill.args = {
   ...Flat.args,
-  pill: true
+  round: true
 };
 
 export const FlatActive = ButtonColorGroup.bind({});
@@ -190,7 +190,7 @@ Gradient.args = {
 export const GradientPill = ButtonColorGroup.bind({});
 GradientPill.args = {
   ...Gradient.args,
-  pill: true
+  round: true
 };
 
 export const GradientActive = ButtonColorGroup.bind({});
@@ -225,7 +225,7 @@ Relief.args = {
 export const ReliefPill = ButtonColorGroup.bind({});
 ReliefPill.args = {
   ...Relief.args,
-  pill: true
+  round: true
 };
 
 export const ReliefActive = ButtonColorGroup.bind({});
@@ -272,7 +272,7 @@ WithIconActive.args = {
 export const WithIconPill = ButtonVariantsGroup.bind({});
 WithIconPill.args = {
   ...WithIcon.args,
-  pill: true
+  round: true
 };
 
 export const WithIconLarge = ButtonVariantsGroup.bind({});
