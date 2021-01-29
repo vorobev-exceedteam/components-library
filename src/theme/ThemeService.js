@@ -14,16 +14,27 @@ class ThemeService {
       baseTheme[color] && baseTheme[color][variation]
         ? new Color(baseTheme[color][variation])
         : new Color(color);
-    let baseTextColor = baseColor.luminosity() > 0.7
-      ? new Color('black')
-      : new Color('white');
+    let baseTextColor =
+      baseColor.luminosity() > 0.7 ? new Color('black') : new Color('white');
     if (baseTheme.text && baseTheme.text.light && baseTheme.text.dark) {
-      baseTextColor = baseColor.luminosity() > 0.7
-        ? new Color(baseTheme.text.dark)
-        : new Color(baseTheme.text.light);
+      baseTextColor =
+        baseColor.luminosity() > 0.7
+          ? new Color(baseTheme.text.dark)
+          : new Color(baseTheme.text.light);
     }
 
     return [baseColor, baseTextColor];
+  };
+
+  static getRippleOptions = (variant, ref) => {
+    const options = {};
+
+    if (['gradient, relief'].includes(variant)) {
+      options.disabled = true;
+    }
+    const color = new Color(ref.current.style.color);
+    options.rippleColor = color.alpha(0.3).rgb().string();
+    return options;
   };
 
   static getButtonVariant = (variant) => {
