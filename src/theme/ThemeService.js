@@ -141,6 +141,19 @@ class ThemeService {
     };
   };
 
+  static getAlertStyle = (color, colorVariation, theme) => {
+    const [baseColor] = ThemeService.getBaseAttributes(
+      color,
+      theme,
+      colorVariation
+    );
+    return {
+      bg: baseColor.alpha(0.13).css(),
+      main: baseColor.hex(),
+      boxShadow: baseColor.alpha(0.4).css()
+    }
+  }
+
   static getFlatButtonStyle = (color, active, theme, colorVariation) => {
     const [baseColor] = ThemeService.getBaseAttributes(
       color,
@@ -148,9 +161,7 @@ class ThemeService {
       colorVariation
     );
     return {
-      mainBg: active
-        ? baseColor.alpha(0.15).css()
-        : baseColor.alpha(0).css(),
+      mainBg: active ? baseColor.alpha(0.15).css() : baseColor.alpha(0).css(),
       main: baseColor.hex(),
       hoverBg: active
         ? baseColor.alpha(0.15).css()
@@ -158,6 +169,26 @@ class ThemeService {
       activeBg: baseColor.alpha(0.15).css()
     };
   };
+
+  // static getTypographyStyle = (variant, theme, color, colorVariant) => {
+  //   switch (true) {
+  //     case variant.match('/h[1-6]/'):
+  //       return ThemeService.getHeadingStyle(
+  //         variant,
+  //         theme,
+  //         color,
+  //         colorVariant
+  //       );
+  //     case variant.match('/display[1-4]/'):
+  //       return ThemeService.getDisplayStyle(
+  //         variant,
+  //         theme,
+  //         color,
+  //         colorVariant
+  //       );
+  //     case:
+  //   }
+  // };
 
   static getBadgeStyle = (theme, color, colorVariation, light) => {
     const [baseColor, baseTextColor] = ThemeService.getBaseAttributes(

@@ -1,11 +1,9 @@
 import React from 'react';
+import BaseInput from '../Base/BaseInput'
 
-const Input = () => {
-  return (
-    <div>
+const Input = (props) => {
 
-    </div>
-  );
+  return <BaseInput {...props}/>
 };
 
 export default Input;
