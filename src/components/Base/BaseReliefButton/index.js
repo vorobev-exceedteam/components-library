@@ -16,13 +16,14 @@ const BaseReliefButton = styled(BaseButton).attrs((props) => ({
   color: ${({ mainText }) => mainText};
   box-shadow: ${({ active }) =>
     active ? 'none' : 'inset 0 -3px 0 0 rgba(34, 41, 47, 0.2)'};
+  &:focus,
   &:hover {
     background-color: ${({ hoverBg }) => hoverBg} !important;
   }
   &:active {
     transform: translateY(3px);
   }
-  &:focus,
+  
   &:active {
     box-shadow: none;
     background-color: ${({ activeBg }) => activeBg};

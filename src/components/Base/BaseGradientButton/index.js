@@ -20,10 +20,10 @@ const BaseGradientButton = styled(BaseButton).attrs((props) => ({
   );
   color: ${({ mainText }) => mainText};
   border-style: none;
+  &:focus,
   &:hover {
     transform: translateY(-2px);
   }
-  &:focus,
   &:active {
     background-image: linear-gradient(
       45deg,

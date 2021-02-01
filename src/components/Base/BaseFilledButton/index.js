@@ -14,10 +14,10 @@ const BaseFilledButton = styled(BaseButton).attrs((props) => ({
   background-color: ${({ mainBg }) => mainBg};
   color: ${({ mainText }) => mainText};
   border-style: none;
+  &:focus,
   &:hover {
     box-shadow: 0 8px 25px -8px ${({ main }) => main};
   }
-  &:focus,
   &:active {
     background-color: ${({ activeBg }) => activeBg};
   }

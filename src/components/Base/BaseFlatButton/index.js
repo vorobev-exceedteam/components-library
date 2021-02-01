@@ -13,11 +13,11 @@ const BaseFlatButton = styled(BaseButton).attrs((props) => ({
 }))`
   background-color: ${({ mainBg }) => mainBg};
   color: ${({ main }) => main};
-  &:hover {
+  &:hover, &:focus {
     background-color: ${({ hoverBg }) => hoverBg};
   }
   &:hover &:active,
-  &:focus {
+  &:focus &:active {
     background-color: ${({ activeBg }) => activeBg};
   }
 `;
