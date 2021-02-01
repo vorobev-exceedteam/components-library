@@ -7,23 +7,24 @@ import BaseReliefButton from '../components/Base/BaseReliefButton';
 import defaultTheme from './defaultTheme';
 
 class ThemeService {
-  static getBaseAttributes = (color, theme, colorVariation) => {
-    const variation = colorVariation ? colorVariation : 'main';
-    const baseTheme = theme[color] ? theme : defaultTheme;
-    const baseColor =
-      baseTheme[color] && baseTheme[color][variation]
-        ? chroma(baseTheme[color][variation])
-        : chroma(color);
+  static getBaseColors = (
+    color = 'primary',
+    theme,
+    colorVariation = 'main'
+  ) => {
+    const baseTheme = Object.keys(theme).length ? theme : defaultTheme;
+    const baseColor = baseTheme[color]
+      ? chroma(baseTheme[color][colorVariation])
+      : chroma(color);
     let baseTextColor =
       baseColor.luminance() > 0.7 ? chroma('black') : chroma('white');
-    if (baseTheme.text && baseTheme.text.light && baseTheme.text.dark) {
+    if (baseTheme.text?.light && baseTheme.text?.dark) {
       baseTextColor =
         baseColor.luminance() > 0.7
           ? chroma(baseTheme.text.dark)
           : chroma(baseTheme.text.light);
     }
-
-    return [baseColor, baseTextColor];
+    return [baseColor, baseTextColor, baseTheme];
   };
 
   static getRippleOptions = (variant, ref) => {
@@ -75,6 +76,32 @@ class ThemeService {
     }
   };
 
+  static getInputSize = (size) => {
+    switch (size) {
+      case 'small':
+        return {
+          padding: '.188rem .857rem',
+          lineHeight: '1',
+          height: '2.142rem',
+          fontSize: '.857rem'
+        };
+      case 'large':
+        return {
+          padding: '.75rem 1.143rem',
+          lineHeight: '1.25',
+          height: '3.2857rem',
+          fontSize: '1.143rem'
+        };
+      default:
+        return {
+          padding: '.438rem 1rem',
+          lineHeight: '1.45',
+          height: '2.714rem;',
+          fontSize: '1rem'
+        };
+    }
+  };
+
   static getButtonSize = (size) => {
     switch (size) {
       case 'small':
@@ -98,37 +125,37 @@ class ThemeService {
     }
   };
 
-  static getReliefButtonStyle = (color, active, theme, colorVariation) => {
-    const [baseColor, baseTextColor] = ThemeService.getBaseAttributes(
+  static getReliefButtonStyle = (color, theme, colorVariation) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseColors(
       color,
       theme,
       colorVariation
     );
     return {
       mainText: baseTextColor.hex(),
-      mainBg: active ? baseColor.darken(0.5).hex() : baseColor.hex(),
+      mainBg: baseColor.hex(),
       hoverBg: baseColor.brighten(0.2).hex(),
       activeBg: baseColor.darken().hex()
     };
   };
 
-  static getGradientButtonStyle = (color, active, theme, colorVariation) => {
-    const [baseColor, baseTextColor] = ThemeService.getBaseAttributes(
+  static getGradientButtonStyle = (color, theme, colorVariation) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseColors(
       color,
       theme,
       colorVariation
     );
     return {
       mainText: baseTextColor.hex(),
-      mainLightBg: active ? baseColor.hex() : baseColor.brighten().hex(),
-      mainDarkBg: active ? baseColor.darken().hex() : baseColor.hex(),
+      mainLightBg: baseColor.brighten().hex(),
+      mainDarkBg: baseColor.hex(),
       activeLightBg: baseColor.hex(),
       activeDarkBg: baseColor.darken().hex()
     };
   };
 
-  static getFilledButtonStyle = (color, active, theme, colorVariation) => {
-    const [baseColor, baseTextColor] = ThemeService.getBaseAttributes(
+  static getFilledButtonStyle = (color, theme, colorVariation) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseColors(
       color,
       theme,
       colorVariation
@@ -136,13 +163,13 @@ class ThemeService {
     return {
       mainText: baseTextColor.hex(),
       main: baseColor.hex(),
-      mainBg: active ? baseColor.darken(0.5).hex() : baseColor.hex(),
+      mainBg: baseColor.hex(),
       activeBg: baseColor.darken(0.5).hex()
     };
   };
 
   static getAlertStyle = (color, colorVariation, theme) => {
-    const [baseColor] = ThemeService.getBaseAttributes(
+    const [baseColor] = ThemeService.getBaseColors(
       color,
       theme,
       colorVariation
@@ -151,56 +178,53 @@ class ThemeService {
       bg: baseColor.alpha(0.13).css(),
       main: baseColor.hex(),
       boxShadow: baseColor.alpha(0.4).css()
-    }
-  }
+    };
+  };
 
-  static getFlatButtonStyle = (color, active, theme, colorVariation) => {
-    const [baseColor] = ThemeService.getBaseAttributes(
+  static getFlatButtonStyle = (color, theme, colorVariation) => {
+    const [baseColor] = ThemeService.getBaseColors(
       color,
       theme,
       colorVariation
     );
     return {
-      mainBg: active ? baseColor.alpha(0.15).css() : baseColor.alpha(0).css(),
+      mainBg: baseColor.alpha(0).css(),
       main: baseColor.hex(),
-      hoverBg: active
-        ? baseColor.alpha(0.15).css()
-        : baseColor.alpha(0.05).css(),
+      hoverBg: baseColor.alpha(0.05).css(),
       activeBg: baseColor.alpha(0.15).css()
     };
   };
 
-  // static getTypographyStyle = (variant, theme, color, colorVariant) => {
-  //   switch (true) {
-  //     case variant.match('/h[1-6]/'):
-  //       return ThemeService.getHeadingStyle(
-  //         variant,
-  //         theme,
-  //         color,
-  //         colorVariant
-  //       );
-  //     case variant.match('/display[1-4]/'):
-  //       return ThemeService.getDisplayStyle(
-  //         variant,
-  //         theme,
-  //         color,
-  //         colorVariant
-  //       );
-  //     case:
-  //   }
-  // };
+  // todo manage active state in button itself
 
-  static getBadgeStyle = (theme, color, colorVariation, light) => {
-    const [baseColor, baseTextColor] = ThemeService.getBaseAttributes(
+  // todo manage light style in badge component
+
+  static getBadgeStyle = (theme, color, colorVariation) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseColors(
       color,
       theme,
       colorVariation
     );
     return {
-      bg: light ? baseColor.alpha(0.13).css() : baseColor.hex(),
-      hoverBg: light ? baseColor.alpha(0.2).css() : baseColor.darken(0.5).hex(),
-      text: light ? baseColor.hex() : baseTextColor.hex(),
-      boxShadow: baseColor.hex()
+      main: baseColor.hex(),
+      bgLight: baseColor.alpha(0.13).css(),
+      hoverBg: baseColor.darken(0.5).hex(),
+      hoverBgLight: baseColor.alpha(0.2).css(),
+      text: baseTextColor.hex(),
+    };
+  };
+
+  static getInputStyle = (color, colorVariation, theme) => {
+    const [baseColor, baseTextColor, baseTheme] = ThemeService.getBaseColors(
+      color,
+      theme,
+      colorVariation
+    );
+    return {
+      bg: baseColor.hex(),
+      text: baseTextColor.hex(),
+      success: baseTheme.success[colorVariation || 'main'],
+      danger: baseTheme.danger[colorVariation || 'main']
     };
   };
 }

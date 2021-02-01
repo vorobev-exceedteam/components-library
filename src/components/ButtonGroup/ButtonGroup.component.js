@@ -2,14 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ButtonGroupWrapper = styled.div`
-    position: relative;
-    display: inline-flex;
-    vertical-align: middle;
-    width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
-    background-image: none;
-  `;
-
-// todo fix button group
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+  background-image: none;
+`;
 
 const ButtonGroup = ({
   children,
@@ -24,22 +22,24 @@ const ButtonGroup = ({
   fullWidth,
   ...rest
 }) => {
-
-
-
-  const [activationStates, setActivationStates] = React.useState([]);
+  const [activationStates, setActivationStates] = React.useState(
+    type === 'radio' ? [true] : []
+  );
 
   const changeActivationState = React.useCallback(
     (index) => (event) => {
-      const newState = type === 'radio' ? [] : [...activationStates];
-      newState[index] = !newState[index];
-      onChange(index, newState[index], event);
-      setActivationStates(newState);
+      if (['radio', 'toggle'].includes(type)) {
+        const newState = type === 'radio' ? [] : [...activationStates];
+        newState[index] = !newState[index];
+        onChange(event, index, newState[index]);
+        setActivationStates(newState);
+      } else {
+        onChange(event, index);
+      }
     },
     [setActivationStates, activationStates, type, onChange]
   );
-  // todo fix gradient button
-  // todo unique key of buttons
+
   const elements = children.map((item, index) => {
     if (children.length > 1) {
       const baseElement = React.cloneElement(item, {
@@ -58,23 +58,23 @@ const ButtonGroup = ({
         case 0:
           return React.cloneElement(baseElement, {
             style: {
-              'border-bottom-right-radius': 0,
-              'border-top-right-radius': 0,
-              'border-right': 'none'
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+              borderRight: 'none'
             }
           });
         case children.length - 1:
           return React.cloneElement(baseElement, {
             style: {
-              'border-bottom-left-radius': 0,
-              'border-top-left-radius': 0,
-              'border-left': 'none'
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+              borderLeft: 'none'
             }
           });
         default:
           return React.cloneElement(baseElement, {
             style: {
-              'border-radius': 0
+              borderRadius: 0
             }
           });
       }

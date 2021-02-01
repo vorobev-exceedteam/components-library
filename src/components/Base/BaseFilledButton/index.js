@@ -5,13 +5,13 @@ import BaseButton from '../BaseButton';
 const BaseFilledButton = styled(BaseButton).attrs((props) => ({
   ...ThemeService.getFilledButtonStyle(
     props.color,
-    props.active,
     props.theme,
-    props.colorVariation,
+    props.colorVariation
   ),
   ...props
 }))`
-  background-color: ${({ mainBg }) => mainBg};
+  background-color: ${({ mainBg, activeBg, active }) =>
+    active ? activeBg : mainBg};
   color: ${({ mainText }) => mainText};
   border-style: none;
   &:focus,

@@ -1,15 +1,15 @@
 import React from 'react';
 import BaseBadge from '../Base/BaseBadge';
-import BaseContentWrapper from '../Base/BaseContentWrapper';
+import { BaseButtonContentWrapper } from '../Base/BaseContentWrapper';
 
 const Badge = ({ icon, children, ...rest }) => {
 
   return (
     <BaseBadge {...rest}>
-      <BaseContentWrapper>
+      <BaseButtonContentWrapper>
         {icon}
         {children}
-      </BaseContentWrapper>
+      </BaseButtonContentWrapper>
     </BaseBadge>
   );
 };

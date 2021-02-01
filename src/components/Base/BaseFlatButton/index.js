@@ -5,19 +5,22 @@ import BaseButton from '../BaseButton';
 const BaseFlatButton = styled(BaseButton).attrs((props) => ({
   ...ThemeService.getFlatButtonStyle(
     props.color,
-    props.active,
     props.theme,
     props.colorVariation
   ),
   ...props
 }))`
-  background-color: ${({ mainBg }) => mainBg};
+  background-color: ${({ mainBg, activeBg, active }) =>
+    active ? activeBg : mainBg};
   color: ${({ main }) => main};
-  &:hover, &:focus {
-    background-color: ${({ hoverBg }) => hoverBg};
+  &:hover,
+  &:focus {
+    background-color: ${({ hoverBg, activeBg, active }) =>
+      active ? activeBg : hoverBg};
   }
   &:hover &:active,
-  &:focus &:active {
+  &:focus &:active,
+  &:active {
     background-color: ${({ activeBg }) => activeBg};
   }
 `;

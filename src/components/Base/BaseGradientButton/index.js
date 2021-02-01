@@ -1,3 +1,4 @@
+
 import styled from 'styled-components';
 import ThemeService from '../../../theme/ThemeService';
 import BaseButton from '../BaseButton';
@@ -5,7 +6,6 @@ import BaseButton from '../BaseButton';
 const BaseGradientButton = styled(BaseButton).attrs((props) => ({
   ...ThemeService.getGradientButtonStyle(
     props.color,
-    props.active,
     props.theme,
     props.colorVariation
   ),
@@ -15,8 +15,10 @@ const BaseGradientButton = styled(BaseButton).attrs((props) => ({
   transition: all 0.2s ease;
   background-image: linear-gradient(
     45deg,
-    ${({ mainDarkBg }) => mainDarkBg},
-    ${({ mainLightBg }) => mainLightBg}
+    ${({ mainDarkBg, active, activeDarkBg }) =>
+      active ? activeDarkBg : mainDarkBg},
+    ${({ mainLightBg, active, activeLightBg }) =>
+      active ? activeLightBg : mainLightBg}
   );
   color: ${({ mainText }) => mainText};
   border-style: none;
