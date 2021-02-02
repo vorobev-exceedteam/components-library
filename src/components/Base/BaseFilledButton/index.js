@@ -6,7 +6,6 @@ const BaseFilledButton = styled(BaseButton).attrs((props) => ({
   ...ThemeService.getFilledButtonStyle(
     props.color,
     props.theme,
-    props.colorVariation
   ),
   ...props
 }))`

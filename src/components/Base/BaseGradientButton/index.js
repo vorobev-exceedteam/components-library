@@ -6,8 +6,7 @@ import BaseButton from '../BaseButton';
 const BaseGradientButton = styled(BaseButton).attrs((props) => ({
   ...ThemeService.getGradientButtonStyle(
     props.color,
-    props.theme,
-    props.colorVariation
+    props.theme
   ),
   ...props
 }))`

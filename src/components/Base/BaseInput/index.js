@@ -3,7 +3,7 @@ import ThemeService from '../../../theme/ThemeService';
 
 export const BaseInput = styled.input.attrs((props) => ({
   ...ThemeService.getInputSize(props.size),
-  ...ThemeService.getInputStyle(props.color, props.colorVariation, props.theme),
+  ...ThemeService.getInputStyle(props.color, props.theme),
   ...props
 }))`
   outline: none;

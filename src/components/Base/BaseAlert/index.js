@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ThemeService from '../../../theme/ThemeService';
 
 export const BaseAlert = styled.div.attrs((props) => ({
-  ...ThemeService.getAlertStyle(props.color, props.colorVariant, props.theme),
+  ...ThemeService.getAlertStyle(props.color, props.theme),
   ...props
 }))`
   background-color: ${({ bg }) => bg};

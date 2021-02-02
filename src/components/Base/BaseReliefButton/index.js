@@ -5,8 +5,7 @@ import BaseButton from '../BaseButton';
 const BaseReliefButton = styled(BaseButton).attrs((props) => ({
   ...ThemeService.getReliefButtonStyle(
     props.color,
-    props.theme,
-    props.colorVariation
+    props.theme
   ),
   ...props
 }))`

@@ -7,14 +7,10 @@ import BaseReliefButton from '../components/Base/BaseReliefButton';
 import defaultTheme from './defaultTheme';
 
 class ThemeService {
-  static getBaseColors = (
-    color = 'primary',
-    theme,
-    colorVariation = 'main'
-  ) => {
-    const baseTheme = ThemeService.getBaseTheme(theme);
+  static getBaseColors = (color = 'primary', theme) => {
+    const baseTheme = Object.keys(theme).length ? theme : defaultTheme;
     const baseColor = baseTheme[color]
-      ? chroma(baseTheme[color][colorVariation])
+      ? chroma(baseTheme[color])
       : chroma(color);
     let baseTextColor =
       baseColor.luminance() > 0.7 ? chroma('black') : chroma('white');
@@ -27,8 +23,14 @@ class ThemeService {
     return [baseColor, baseTextColor, baseTheme];
   };
 
-  static getBaseTheme = (theme) => {
-    return Object.keys(theme).length ? theme : defaultTheme;
+  static getTypographyColors = (color, theme) => {
+    const baseTheme = Object.keys(theme).length ? theme : defaultTheme;
+    const baseColor = color
+      ? baseTheme[color]
+        ? chroma(baseTheme[color])
+        : chroma(color)
+      : chroma(baseTheme.text.dark);
+    return [baseColor, baseTheme];
   };
 
   static getRippleOptions = (variant, ref) => {
@@ -129,12 +131,8 @@ class ThemeService {
     }
   };
 
-  static getReliefButtonStyle = (color, theme, colorVariation) => {
-    const [baseColor, baseTextColor] = ThemeService.getBaseColors(
-      color,
-      theme,
-      colorVariation
-    );
+  static getReliefButtonStyle = (color, theme) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseColors(color, theme);
     return {
       mainText: baseTextColor.hex(),
       mainBg: baseColor.hex(),
@@ -143,12 +141,8 @@ class ThemeService {
     };
   };
 
-  static getGradientButtonStyle = (color, theme, colorVariation) => {
-    const [baseColor, baseTextColor] = ThemeService.getBaseColors(
-      color,
-      theme,
-      colorVariation
-    );
+  static getGradientButtonStyle = (color, theme) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseColors(color, theme);
     return {
       mainText: baseTextColor.hex(),
       mainLightBg: baseColor.brighten().hex(),
@@ -157,12 +151,8 @@ class ThemeService {
     };
   };
 
-  static getFilledButtonStyle = (color, theme, colorVariation) => {
-    const [baseColor, baseTextColor] = ThemeService.getBaseColors(
-      color,
-      theme,
-      colorVariation
-    );
+  static getFilledButtonStyle = (color, theme) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseColors(color, theme);
     return {
       mainText: baseTextColor.hex(),
       main: baseColor.hex(),
@@ -171,12 +161,8 @@ class ThemeService {
     };
   };
 
-  static getAlertStyle = (color, colorVariation, theme) => {
-    const [baseColor] = ThemeService.getBaseColors(
-      color,
-      theme,
-      colorVariation
-    );
+  static getAlertStyle = (color, theme) => {
+    const [baseColor] = ThemeService.getBaseColors(color, theme);
     return {
       bg: baseColor.alpha(0.13).css(),
       main: baseColor.hex(),
@@ -184,12 +170,8 @@ class ThemeService {
     };
   };
 
-  static getFlatButtonStyle = (color, theme, colorVariation) => {
-    const [baseColor] = ThemeService.getBaseColors(
-      color,
-      theme,
-      colorVariation
-    );
+  static getFlatButtonStyle = (color, theme) => {
+    const [baseColor] = ThemeService.getBaseColors(color, theme);
     return {
       mainBg: baseColor.alpha(0).css(),
       main: baseColor.hex(),
@@ -198,12 +180,8 @@ class ThemeService {
     };
   };
 
-  static getBadgeStyle = (theme, color, colorVariation) => {
-    const [baseColor, baseTextColor] = ThemeService.getBaseColors(
-      color,
-      theme,
-      colorVariation
-    );
+  static getBadgeStyle = (theme, color) => {
+    const [baseColor, baseTextColor] = ThemeService.getBaseColors(color, theme);
     return {
       main: baseColor.hex(),
       bgLight: baseColor.alpha(0.13).css(),
@@ -213,34 +191,21 @@ class ThemeService {
     };
   };
 
-  static getInputStyle = (color, colorVariation, theme) => {
+  static getInputStyle = (color, theme) => {
     const [baseColor, baseTextColor, baseTheme] = ThemeService.getBaseColors(
       color,
-      theme,
-      colorVariation
+      theme
     );
     return {
       bg: baseColor.hex(),
       text: baseTextColor.hex(),
-      success: baseTheme.success[colorVariation || 'main'],
-      danger: baseTheme.danger[colorVariation || 'main']
+      success: baseTheme.success,
+      danger: baseTheme.danger
     };
   };
 
-  static getTypographyStyle = (
-    variant,
-    theme,
-    fontWeightVariant,
-    color,
-    colorVariation
-  ) => {
-    const [baseColor, baseTextColor, baseTheme] = ThemeService.getBaseColors(
-      color,
-      theme,
-      colorVariation
-    );
-
-    const textColor = color ? baseColor : chroma(baseTheme.text.dark);
+  static getTypographyStyle = (variant, theme, fontWeightVariant, color) => {
+    const [baseColor] = ThemeService.getTypographyColors(color, theme);
     let fontWidth;
     switch (fontWeightVariant) {
       case 'light':
@@ -257,75 +222,75 @@ class ThemeService {
       case 'h1':
         return {
           fontSize: '2rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'h2':
         return {
           fontSize: '1.714rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'h3':
         return {
           fontSize: '1.5rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'h4':
         return {
           fontSize: '1.286rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'h5':
         return {
           fontSize: '1.07rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'h6':
         return {
           fontSize: '1rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'secondary':
         return {
           fontSize: '.857rem',
-          textColor: textColor.alpha(0.35).css(),
+          textColor: baseColor.alpha(0.35).css(),
           fontWidth
         };
       case 'display1':
         return {
           fontSize: '6rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'display2':
         return {
           fontSize: '5.5rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'display3':
         return {
           fontSize: '4.5rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       case 'display4':
         return {
           fontSize: '3.5rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
         };
       default:
         return {
           fontSize: '1.25rem',
-          textColor: textColor.hex(),
+          textColor: baseColor.hex(),
           fontWidth
-        }
+        };
     }
   };
 }

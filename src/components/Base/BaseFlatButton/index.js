@@ -5,8 +5,7 @@ import BaseButton from '../BaseButton';
 const BaseFlatButton = styled(BaseButton).attrs((props) => ({
   ...ThemeService.getFlatButtonStyle(
     props.color,
-    props.theme,
-    props.colorVariation
+    props.theme
   ),
   ...props
 }))`

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ThemeService from '../../../theme/ThemeService';
 
 const BaseBadge = styled.div.attrs((props) => ({
-  ...ThemeService.getBadgeStyle(props.theme, props.color, props.colorVariant),
+  ...ThemeService.getBadgeStyle(props.theme, props.color),
   ...props
 }))`
   background-color: ${({ main, light, bgLight }) => (light ? bgLight : main)};
