@@ -21,7 +21,7 @@ export const Filled = Template.bind({});
 
 export const FilledPill = Template.bind({});
 FilledPill.args = {
-  pill: true
+  round: true
 };
 
 export const FilledRadio = Template.bind({});
@@ -62,7 +62,7 @@ Outlined.args = {
 export const OutlinedPill = Template.bind({});
 OutlinedPill.args = {
   ...Outlined.args,
-  pill: true
+  round: true
 };
 
 export const OutlinedRadio = Template.bind({});
@@ -109,7 +109,7 @@ Flat.args = {
 export const FlatPill = Template.bind({});
 FlatPill.args = {
   ...Flat.args,
-  pill: true
+  round: true
 };
 
 export const FlatRadio = Template.bind({});
@@ -156,7 +156,7 @@ Gradient.args = {
 export const GradientPill = Template.bind({});
 GradientPill.args = {
   ...Gradient.args,
-  pill: true
+  round: true
 };
 
 export const GradientRadio = Template.bind({});

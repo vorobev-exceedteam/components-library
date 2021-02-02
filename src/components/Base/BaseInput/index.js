@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import ThemeService from '../../../theme/ThemeService';
 
-export const BaseInput = styled.input.attrs((props) => ({
-  ...ThemeService.getInputSize(props.size),
-  ...ThemeService.getInputStyle(props.color, props.theme),
+
+export const BaseInputField = styled.input.attrs((props)=> ({
+  ...ThemeService.getInputFieldStyle(props.color, props.theme),
+  ...ThemeService.getInputFieldSize(props.size),
   ...props
 }))`
   outline: none;
@@ -22,6 +23,9 @@ export const BaseInput = styled.input.attrs((props) => ({
       valid ? success : invalid ? danger : '#d8d6de'};
   border-radius: 0.357rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  &::placeholder {
+    color: #b9b9c3;
+  }
   &:focus {
     border-color: ${({ valid, invalid, success, danger, bg }) =>
       valid ? success : invalid ? danger : bg};
@@ -35,4 +39,21 @@ export const BaseInput = styled.input.attrs((props) => ({
       transition: transform 0.15s ease-in-out;
     }
   }
+`;
+
+export const BaseInputLabel = styled.label`
+  color: #5e5873;
+  font-size: 0.857rem;
+  display: inline-block;
+  margin-bottom: 0.2857rem;
+`;
+
+export const BaseInputHelperText = styled.div.attrs((props)=> ({
+  ...ThemeService.getInputFieldStyle(props.color, props.theme),
+  ...props
+}))`
+  font-size: 0.857rem;
+  font-weight: 400;
+  color: ${({ valid, invalid, success, danger }) =>
+          valid ? success : invalid ? danger : '#b9b9c3'};;
 `;

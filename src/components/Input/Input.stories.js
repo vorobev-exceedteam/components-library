@@ -10,7 +10,9 @@ const Template = (args) => <Input {...args}/>
 
 export const Default = Template.bind({})
 Default.args = {
+  label: 'Test Label',
   placeholder: 'Test',
+  helperText: 'Test Helper Text'
 }
 
 export const DefaultLarge = Template.bind({})
@@ -25,14 +27,16 @@ DefaultSmall.args = {
   size:'small'
 }
 
-export const DefaultValid = Template.bind({})
-DefaultValid.args = {
+export const Valid = Template.bind({})
+Valid.args = {
+  ...Default.args,
   valid: true,
   placeholder: 'Valid',
 }
 
-export const DefaultInvalid = Template.bind({})
-DefaultInvalid.args = {
+export const Invalid = Template.bind({})
+Invalid.args = {
+  ...Default.args,
   invalid: true,
   placeholder: 'Invalid',
 }

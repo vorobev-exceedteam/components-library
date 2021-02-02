@@ -82,7 +82,7 @@ class ThemeService {
     }
   };
 
-  static getInputSize = (size) => {
+  static getInputFieldSize = (size) => {
     switch (size) {
       case 'small':
         return {
@@ -191,7 +191,7 @@ class ThemeService {
     };
   };
 
-  static getInputStyle = (color, theme) => {
+  static getInputFieldStyle = (color, theme) => {
     const [baseColor, baseTextColor, baseTheme] = ThemeService.getBaseColors(
       color,
       theme

@@ -8,7 +8,7 @@ const defaultTheme = {
   dark: '#4b4b4b',
   text: {
     dark: '#5e5873',
-    light: '#fff'
+    light: '#fff',
   }
 };
 
