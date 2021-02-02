@@ -12,7 +12,7 @@ class ThemeService {
     theme,
     colorVariation = 'main'
   ) => {
-    const baseTheme = Object.keys(theme).length ? theme : defaultTheme;
+    const baseTheme = ThemeService.getBaseTheme(theme);
     const baseColor = baseTheme[color]
       ? chroma(baseTheme[color][colorVariation])
       : chroma(color);
@@ -25,6 +25,10 @@ class ThemeService {
           : chroma(baseTheme.text.light);
     }
     return [baseColor, baseTextColor, baseTheme];
+  };
+
+  static getBaseTheme = (theme) => {
+    return Object.keys(theme).length ? theme : defaultTheme;
   };
 
   static getRippleOptions = (variant, ref) => {
@@ -148,8 +152,7 @@ class ThemeService {
     return {
       mainText: baseTextColor.hex(),
       mainLightBg: baseColor.brighten().hex(),
-      mainDarkBg: baseColor.hex(),
-      activeLightBg: baseColor.hex(),
+      main: baseColor.hex(),
       activeDarkBg: baseColor.darken().hex()
     };
   };
@@ -195,10 +198,6 @@ class ThemeService {
     };
   };
 
-  // todo manage active state in button itself
-
-  // todo manage light style in badge component
-
   static getBadgeStyle = (theme, color, colorVariation) => {
     const [baseColor, baseTextColor] = ThemeService.getBaseColors(
       color,
@@ -210,7 +209,7 @@ class ThemeService {
       bgLight: baseColor.alpha(0.13).css(),
       hoverBg: baseColor.darken(0.5).hex(),
       hoverBgLight: baseColor.alpha(0.2).css(),
-      text: baseTextColor.hex(),
+      text: baseTextColor.hex()
     };
   };
 
@@ -226,6 +225,108 @@ class ThemeService {
       success: baseTheme.success[colorVariation || 'main'],
       danger: baseTheme.danger[colorVariation || 'main']
     };
+  };
+
+  static getTypographyStyle = (
+    variant,
+    theme,
+    fontWeightVariant,
+    color,
+    colorVariation
+  ) => {
+    const [baseColor, baseTextColor, baseTheme] = ThemeService.getBaseColors(
+      color,
+      theme,
+      colorVariation
+    );
+
+    const textColor = color ? baseColor : chroma(baseTheme.text.dark);
+    let fontWidth;
+    switch (fontWeightVariant) {
+      case 'light':
+        fontWidth = '400';
+        break;
+      case 'bold':
+        fontWidth = '600';
+        break;
+      default:
+        fontWidth = '500';
+        break;
+    }
+    switch (variant) {
+      case 'h1':
+        return {
+          fontSize: '2rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'h2':
+        return {
+          fontSize: '1.714rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'h3':
+        return {
+          fontSize: '1.5rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'h4':
+        return {
+          fontSize: '1.286rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'h5':
+        return {
+          fontSize: '1.07rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'h6':
+        return {
+          fontSize: '1rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'secondary':
+        return {
+          fontSize: '.857rem',
+          textColor: textColor.alpha(0.35).css(),
+          fontWidth
+        };
+      case 'display1':
+        return {
+          fontSize: '6rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'display2':
+        return {
+          fontSize: '5.5rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'display3':
+        return {
+          fontSize: '4.5rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      case 'display4':
+        return {
+          fontSize: '3.5rem',
+          textColor: textColor.hex(),
+          fontWidth
+        };
+      default:
+        return {
+          fontSize: '1.25rem',
+          textColor: textColor.hex(),
+          fontWidth
+        }
+    }
   };
 }
 

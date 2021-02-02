@@ -15,10 +15,10 @@ const BaseGradientButton = styled(BaseButton).attrs((props) => ({
   transition: all 0.2s ease;
   background-image: linear-gradient(
     45deg,
-    ${({ mainDarkBg, active, activeDarkBg }) =>
-      active ? activeDarkBg : mainDarkBg},
-    ${({ mainLightBg, active, activeLightBg }) =>
-      active ? activeLightBg : mainLightBg}
+    ${({ main, active, activeDarkBg }) =>
+      active ? activeDarkBg : main},
+    ${({ mainLightBg, active, main }) =>
+      active ? main : mainLightBg}
   );
   color: ${({ mainText }) => mainText};
   border-style: none;
@@ -30,7 +30,7 @@ const BaseGradientButton = styled(BaseButton).attrs((props) => ({
     background-image: linear-gradient(
       45deg,
       ${({ activeDarkBg }) => activeDarkBg},
-      ${({ activeLightBg }) => activeLightBg}
+      ${({ main }) => main}
     );
   }
 `;
