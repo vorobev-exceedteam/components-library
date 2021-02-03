@@ -206,16 +206,16 @@ class ThemeService {
 
   static getTypographyStyle = (variant, theme, fontWeightVariant, color) => {
     const [baseColor] = ThemeService.getTypographyColors(color, theme);
-    let fontWidth;
+    let fontWeight;
     switch (fontWeightVariant) {
       case 'light':
-        fontWidth = '400';
+        fontWeight = '400';
         break;
       case 'bold':
-        fontWidth = '600';
+        fontWeight = '600';
         break;
       default:
-        fontWidth = '500';
+        fontWeight = '500';
         break;
     }
     switch (variant) {
@@ -223,73 +223,79 @@ class ThemeService {
         return {
           fontSize: '2rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'h2':
         return {
           fontSize: '1.714rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'h3':
         return {
           fontSize: '1.5rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'h4':
         return {
           fontSize: '1.286rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'h5':
         return {
           fontSize: '1.07rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'h6':
         return {
           fontSize: '1rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'secondary':
         return {
           fontSize: '.857rem',
           textColor: baseColor.alpha(0.35).css(),
-          fontWidth
+          fontWeight
         };
       case 'display1':
         return {
           fontSize: '6rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'display2':
         return {
           fontSize: '5.5rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'display3':
         return {
           fontSize: '4.5rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
       case 'display4':
         return {
           fontSize: '3.5rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
+        };
+      case 'card-text':
+        return {
+          fontSize: '1rem',
+          textColor: baseColor.hex(),
+          fontWeight
         };
       default:
         return {
           fontSize: '1.25rem',
           textColor: baseColor.hex(),
-          fontWidth
+          fontWeight
         };
     }
   };

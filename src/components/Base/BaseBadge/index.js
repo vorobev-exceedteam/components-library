@@ -7,7 +7,8 @@ const BaseBadge = styled.div.attrs((props) => ({
 }))`
   background-color: ${({ main, light, bgLight }) => (light ? bgLight : main)};
   color: ${({ text, light, main }) => (light ? main : text)};
-  box-shadow: ${({ glow, main }) => (glow ? `0 0 10px ${main}` : `none`)};
+  box-shadow: ${({ glow, main }) => (glow ? `0 0 10px $main}` : `none`)};
+  width: ${({fullWidth}) => fullWidth? '100%' : 'initial'};
   display: inline-block;
   padding: 0.3rem 0.5rem;
   text-align: center;
