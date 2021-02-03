@@ -299,6 +299,27 @@ class ThemeService {
         };
     }
   };
+
+  static getBlockquoteStyle = (color, theme) => {
+    const [baseColor] = ThemeService.getBaseColors(color, theme);
+    return {
+      main: baseColor.hex()
+    };
+  };
+
+  static getProgressBackgroundStyle = (color, theme) => {
+    const [baseColor] = ThemeService.getBaseColors(color, theme);
+    return {
+      main: baseColor.alpha(0.2).css()
+    };
+  };
+
+  static getProgressBarStyle = (color, theme) => {
+    const [baseColor] = ThemeService.getBaseColors(color, theme);
+    return {
+      main: baseColor.hex(),
+    };
+  };
 }
 
 export default ThemeService;
