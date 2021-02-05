@@ -4,10 +4,16 @@ import Badge from './Badge.component';
 
 const Story = {
   title: 'UI/Components/Badge',
-  component: Badge
+  component: Badge,
+  argTypes: {
+    color: {
+      defaultValue: 'blue',
+      control: { type: 'color' }
+    }
+  }
 };
 
-const Badges = (args) => (
+const Badges = ({ color, ...args }) => (
   <div
     style={{
       display: 'flex',
@@ -35,7 +41,7 @@ const Badges = (args) => (
     <Badge color={'dark'} {...args}>
       Dark
     </Badge>
-    <Badge color={'cyan'} {...args}>
+    <Badge color={color} {...args}>
       Custom
     </Badge>
   </div>
