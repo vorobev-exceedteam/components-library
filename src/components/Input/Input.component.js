@@ -1,10 +1,7 @@
 import React from 'react';
-import {
-  BaseInputField,
-  BaseInputLabel,
-  BaseInputHelperText
-} from '../Base/BaseInput';
-
+import BaseInputField from '../Base/BaseInput/InputField';
+import BaseInputHelperText from '../Base/BaseInput/InputHelperText';
+import BaseInputLabel from '../Base/BaseInput/InputLabel';
 const Input = ({
   valid,
   invalid,
@@ -16,11 +13,7 @@ const Input = ({
 }) => {
   return (
     <div>
-      {label ? (
-        <BaseInputLabel {...labelProps}>
-          {label}
-        </BaseInputLabel>
-      ) : null}
+      {label ? <BaseInputLabel {...labelProps}>{label}</BaseInputLabel> : null}
       <BaseInputField valid={valid} invalid={invalid} {...rest} />
       {helperText ? (
         <BaseInputHelperText valid={valid} invalid={invalid}>

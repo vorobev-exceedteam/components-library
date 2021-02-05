@@ -1,21 +1,17 @@
 import styled from 'styled-components';
 import ThemeService from '../../../theme/ThemeService';
+import { getFontWeightVariant } from './fontWeightVariants';
+import { getTypographyVariant } from './variants';
 
 const BaseTypographyStyle = styled.div.attrs((props) => ({
-  ...ThemeService.getTypographyStyle(
-    props.variant,
-    props.theme,
-    props.fontWeightVariant,
-    props.color
-  ),
-  ...props
+  ...ThemeService.getTypographyColors(props.color, props.theme)
 }))`
   margin: 0;
   font-family: inherit;
   font-weight: ${({ fontWeight }) => fontWeight};
   line-height: 1.2;
-  color: ${({ textColor }) => textColor};
-  font-size: ${({ fontSize }) => fontSize};
+  ${getFontWeightVariant}
+  ${getTypographyVariant}
 `;
 
 export default BaseTypographyStyle;

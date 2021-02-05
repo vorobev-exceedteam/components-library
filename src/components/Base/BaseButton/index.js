@@ -1,32 +1,20 @@
 import styled from 'styled-components';
-import defaultTheme from '../../../theme/defaultTheme';
 import ThemeService from '../../../theme/ThemeService';
+import { getButtonSize, getIconButtonSize } from './sizes';
+import { getButtonVariant } from './variants';
 
-const BaseButton = styled.button.attrs((props) => {
-  const sizes = props.iconButton
-    ? ThemeService.getIconButtonSize(props.size)
-    : ThemeService.getButtonSize(props.size);
-  const roundBorderSize = props.iconButton ? '100%' : '50rem';
-  return {
-    roundBorderSize,
-    ...sizes,
-    ...props
-  };
-})`
+const BaseButton = styled.button.attrs((props) => ({
+  ...ThemeService.getBaseColors(props.color, props.theme)
+}))`
   outline: none;
-  font-size: ${({ fontSize }) => fontSize};
-  line-height: ${({ lineHeight }) => lineHeight};
-  padding: ${({ padding }) => padding};
   display: inline-block;
-  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   box-shadow: none;
-  text-align-all: center;
+  text-align: center;
   border: 1px solid transparent;
-  border-radius: ${({ round, roundBorderSize }) =>
-    round ? roundBorderSize : '.358rem'};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+  border-radius: ${({ round, iconButton }) =>
+    round ? (iconButton ? '100%' : '50rem') : '.358rem'};
   font-weight: 500;
-  color: ${({ theme }) =>
-    theme.text ? theme.text.dark : defaultTheme.text.dark};
   vertical-align: middle;
   user-select: none;
   -webkit-transition: color 0.15s ease-in-out,
@@ -44,6 +32,8 @@ const BaseButton = styled.button.attrs((props) => {
     pointer-events: none;
     opacity: 0.65;
   }
+  ${({ iconButton }) => (iconButton ? getIconButtonSize : getButtonSize)}
+  ${getButtonVariant}
 `;
 
 export default BaseButton;

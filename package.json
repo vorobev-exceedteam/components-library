@@ -17,6 +17,7 @@
     "react-scripts": "4.0.1",
     "react-use-ripple": "^1.5.2",
     "styled-components": "^5.2.1",
+    "styled-tools": "^1.7.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

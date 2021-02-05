@@ -2,20 +2,20 @@ import styled, { css } from 'styled-components';
 import ThemeService from '../../../theme/ThemeService';
 
 export const BaseBlockquote = styled.blockquote.attrs((props) => ({
-  ...ThemeService.getBlockquoteStyle(props.color, props.theme),
+  ...ThemeService.getBaseColors(props.color, props.theme),
   ...props
 }))`
   ${({ borderLeft }) =>
     borderLeft
       ? css`
-    border-left: 3px solid ${({ main }) => main};
+    border-left: 3px solid ${({ baseColor }) => baseColor.hex()};
     padding-left: 1rem};
   `
       : ''}
   ${({ borderRight }) =>
     borderRight
       ? css`
-    border-right: 3px solid ${({ main }) => main};
+    border-right: 3px solid ${({ baseColor }) => baseColor.hex()};
     padding-right: 1rem};
   `
       : ''}
