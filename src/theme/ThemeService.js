@@ -38,8 +38,7 @@ class ThemeService {
     options.rippleColor = color.alpha(0.15).css();
     return options;
   };
-
-
+  
 }
 
 export default ThemeService;

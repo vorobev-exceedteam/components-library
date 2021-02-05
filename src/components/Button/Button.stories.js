@@ -4,12 +4,33 @@ import { BsHouseDoor } from 'react-icons/all';
 
 const Story = {
   title: 'UI/Components/Button',
-  component: Button
+  component: Button,
+  argTypes: {
+    color: {
+      control: 'color'
+    },
+    colorType: {
+      defaultValue: 'primary',
+      control: {
+        type: 'select',
+        options: [
+          'primary',
+          'secondary',
+          'info',
+          'success',
+          'danger',
+          'warning',
+          'dark',
+          'custom'
+        ]
+      }
+    },
+  }
 };
 
 const testIcon = <BsHouseDoor />;
 
-const ButtonColorGroup = (args) => (
+const ButtonColorGroup = ({ color, ...args }) => (
   <div
     style={{
       display: 'flex',
@@ -37,36 +58,43 @@ const ButtonColorGroup = (args) => (
     <Button color={'dark'} {...args}>
       Dark
     </Button>
-    <Button color={'cyan'} {...args}>
+    <Button color={color} {...args}>
       Custom
     </Button>
   </div>
 );
 
-const ButtonVariantsGroup = (args) => (
-  <div
-    style={{
-      display: 'flex',
-      gap: '8px'
-    }}
-  >
-    <Button color={'primary'} {...args}>
-      Filled
-    </Button>
-    <Button color={'primary'} variant={'outlined'} {...args}>
-      Outlined
-    </Button>
-    <Button color={'primary'} variant={'flat'} {...args}>
-      Flat
-    </Button>
-    <Button color={'primary'} variant={'gradient'} {...args}>
-      Gradient
-    </Button>
-    <Button color={'primary'} variant={'relief'} {...args}>
-      Relief
-    </Button>
-  </div>
-);
+const ButtonVariantsGroup = ({ color, colorType, ...args }) => {
+  let actualColor = colorType;
+  if (colorType === 'custom') {
+    actualColor = color
+  }
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        gap: '8px'
+      }}
+    >
+      <Button color={actualColor} {...args}>
+        Filled
+      </Button>
+      <Button color={actualColor} variant={'outlined'} {...args}>
+        Outlined
+      </Button>
+      <Button color={actualColor} variant={'flat'} {...args}>
+        Flat
+      </Button>
+      <Button color={actualColor} variant={'gradient'} {...args}>
+        Gradient
+      </Button>
+      <Button color={actualColor} variant={'relief'} {...args}>
+        Relief
+      </Button>
+    </div>
+  );
+}
 
 export const Filled = ButtonColorGroup.bind({});
 

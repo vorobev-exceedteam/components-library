@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from 'react';
+import { useEffect } from 'react';
 import Color from 'color';
 
 const ANIMATION_LENGTH = 700;

@@ -1,15 +1,20 @@
 import React from 'react';
 import IconButton from './IconButton.component';
-import {BsHouseDoor} from 'react-icons/all'
+import { BsHouseDoor } from 'react-icons/all';
 
 const Story = {
   title: 'UI/Components/IconButton',
-  component: IconButton
+  component: IconButton,
+  argTypes: {
+    color: {
+      control: 'color'
+    }
+  }
 };
 
-const testIcon = <BsHouseDoor/>
+const testIcon = <BsHouseDoor />;
 
-const IconButtonColorGroup = (args) => (
+const IconButtonColorGroup = ({ color, ...args }) => (
   <div
     style={{
       display: 'flex',
@@ -37,7 +42,7 @@ const IconButtonColorGroup = (args) => (
     <IconButton color={'dark'} {...args}>
       {testIcon}
     </IconButton>
-    <IconButton color={'cyan'} {...args}>
+    <IconButton color={color} {...args}>
       {testIcon}
     </IconButton>
   </div>
@@ -226,6 +231,5 @@ ReliefSmall.args = {
   ...Relief.args,
   size: 'small'
 };
-
 
 export default Story;

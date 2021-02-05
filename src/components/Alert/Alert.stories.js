@@ -3,16 +3,34 @@ import Alert from './Alert.component';
 
 const Story = {
   title: 'UI/Components/Alert',
-  component: Alert
+  component: Alert,
+  argTypes: {
+    text: {
+      defaultValue: 'Test',
+      control: 'text'
+    },
+    customColor: {
+      control: 'color'
+    }
+  }
 };
 
-const AlertGroup = ({ colors, ...rest }) => (
+const AlertGroup = ({ customColor, text, colors, ...rest }) => (
   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-    {colors.map((color) => (
-      <Alert key={color} color={color} {...rest}>
-        {color}
-      </Alert>
-    ))}
+    {colors.map((color) => {
+      if (color === 'custom') {
+        return (
+          <Alert key={color} color={customColor} {...rest}>
+            {text}
+          </Alert>
+        );
+      }
+      return (
+        <Alert key={color} color={color} {...rest}>
+          {text}
+        </Alert>
+      );
+    })}
   </div>
 );
 
@@ -26,7 +44,7 @@ Default.args = {
     'warning',
     'danger',
     'dark',
-    'purple'
+    'custom'
   ]
 };
 
@@ -39,16 +57,15 @@ WithTitle.args = {
 export const WithIcon = AlertGroup.bind({});
 WithIcon.args = {
   ...Default.args,
-  icon: <MdCheck/>
-}
+  icon: <MdCheck />
+};
 
 export const WithTitleAndIcon = AlertGroup.bind({});
 WithTitleAndIcon.args = {
   ...Default.args,
   ...WithIcon.args,
   ...WithTitle.args,
-  titleIcon: <MdSearch/>
-}
-
+  titleIcon: <MdSearch />
+};
 
 export default Story;

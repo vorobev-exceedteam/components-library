@@ -3,7 +3,23 @@ import Blockquote from './Blockquote.component';
 
 const Story = {
   title: 'UI/Typography/Blockquote',
-  component: Blockquote
+  component: Blockquote,
+  argTypes: {
+    align: {
+      defaultValue: 'left',
+      control: {
+        type: 'select',
+        options: ['center', 'left', 'right']
+      }
+    },
+    footerAlign: {
+      defaultValue: 'left',
+      control: {
+        type: 'select',
+        options: ['center', 'left', 'right']
+      }
+    }
+  }
 };
 
 const Template = (args) => (
@@ -27,24 +43,10 @@ DefaultBorderLeft.args = {
   borderLeft: true
 };
 
-export const DefaultCenter = Template.bind({})
-DefaultCenter.args = {
-  align: 'center'
-}
-
-export const DefaultRight = Template.bind({})
-DefaultRight.args = {
-  align: 'right'
-}
-
-export const DefaultWithFooter = Template.bind({})
+export const DefaultWithFooter = Template.bind({});
 DefaultWithFooter.args = {
-  footer: 'Some Dude'
-}
-export const DefaultWithFooterRight = Template.bind({})
-DefaultWithFooterRight.args = {
-  footer: 'Some Dude',
-  footerAlign: 'right'
-}
+  footer: 'Test'
+};
+
 
 export default Story;

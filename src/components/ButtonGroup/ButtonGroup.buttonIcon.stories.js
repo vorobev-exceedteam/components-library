@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '../Button/Button.component';
 import { action } from '@storybook/addon-actions';
 import { BsHouseDoor } from 'react-icons/all';
 import ButtonGroup from './ButtonGroup.component';
@@ -8,26 +7,66 @@ import IconButton from '../IconButton/IconButton.component';
 const Story = {
   title: 'UI/Components/ButtonGroup/ButtonIcon',
   component: ButtonGroup,
+  argTypes: {
+    color: {
+      defaultValue: 'blue',
+      control: { type: 'color' }
+    },
+    colorType: {
+      defaultValue: 'primary',
+      control: {
+        type: 'select',
+        options: [
+          'primary',
+          'secondary',
+          'info',
+          'success',
+          'danger',
+          'warning',
+          'dark',
+          'custom'
+        ]
+      }
+    },
+    type: {
+      defaultValue: 'default',
+      control: {
+        type: 'select',
+        options: [
+          'default',
+          'radio',
+          'toggle',
+        ]
+      }
+    }
+  }
 };
 
-const Template = (args) => (
-  <ButtonGroup onChange={action('onButtonChange')} {...args}>
-    <IconButton color={'primary'}><BsHouseDoor/></IconButton>
-    <IconButton color={'primary'}><BsHouseDoor/></IconButton>
-    <IconButton color={'primary'}><BsHouseDoor/></IconButton>
-  </ButtonGroup>
-);
+const Template = ({ color, colorType, ...args }) => {
+  if (colorType === 'custom') {
+    return (
+      <ButtonGroup onChange={action('onButtonChange')} {...args}>
+        <IconButton color={color}><BsHouseDoor/></IconButton>
+        <IconButton color={color}><BsHouseDoor/></IconButton>
+        <IconButton color={color}><BsHouseDoor/></IconButton>
+      </ButtonGroup>
+    );
+  }
+
+  return (
+    <ButtonGroup onChange={action('onButtonChange')} {...args}>
+      <IconButton color={colorType}><BsHouseDoor/></IconButton>
+      <IconButton color={colorType}><BsHouseDoor/></IconButton>
+      <IconButton color={colorType}><BsHouseDoor/></IconButton>
+    </ButtonGroup>
+  );
+}
 
 export const Filled = Template.bind({});
 
 export const FilledPill = Template.bind({});
 FilledPill.args = {
   round: true
-};
-
-export const FilledRadio = Template.bind({});
-FilledRadio.args = {
-  type: 'radio',
 };
 
 export const FilledDisabled = Template.bind({});
@@ -61,11 +100,6 @@ OutlinedPill.args = {
   round: true
 };
 
-export const OutlinedRadio = Template.bind({});
-OutlinedRadio.args = {
-  ...Outlined.args,
-  type: 'radio',
-};
 
 export const OutlinedDisabled = Template.bind({});
 OutlinedDisabled.args = {
@@ -100,12 +134,6 @@ export const FlatPill = Template.bind({});
 FlatPill.args = {
   ...Flat.args,
   round: true
-};
-
-export const FlatRadio = Template.bind({});
-FlatRadio.args = {
-  ...Flat.args,
-  type: 'radio',
 };
 
 export const FlatDisabled = Template.bind({});
@@ -143,12 +171,6 @@ GradientPill.args = {
   round: true
 };
 
-export const GradientRadio = Template.bind({});
-GradientRadio.args = {
-  ...Gradient.args,
-  type: 'radio',
-};
-
 export const GradientDisabled = Template.bind({});
 GradientDisabled.args = {
   ...Gradient.args,
@@ -176,12 +198,6 @@ export const ReliefPill = Template.bind({});
 ReliefPill.args = {
   ...Relief.args,
   round: true
-};
-
-export const ReliefRadio = Template.bind({});
-ReliefRadio.args = {
-  ...Relief.args,
-  type: 'radio',
 };
 
 export const ReliefDisabled = Template.bind({});

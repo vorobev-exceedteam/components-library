@@ -6,16 +6,60 @@ import ButtonGroup from './ButtonGroup.component';
 const Story = {
   title: 'UI/Components/ButtonGroup/Button',
   component: ButtonGroup,
+  argTypes: {
+    color: {
+      defaultValue: 'blue',
+      control: { type: 'color' }
+    },
+    colorType: {
+      defaultValue: 'primary',
+      control: {
+        type: 'select',
+        options: [
+          'primary',
+          'secondary',
+          'info',
+          'success',
+          'danger',
+          'warning',
+          'dark',
+          'custom'
+        ]
+      }
+    },
+    type: {
+      defaultValue: 'default',
+      control: {
+        type: 'select',
+        options: [
+          'default',
+          'radio',
+          'toggle',
+        ]
+      }
+    }
+  }
 };
 
-const Template = (args) => (
-  <ButtonGroup onChange={action('onButtonChange')} {...args}>
-    <Button color={'primary'}>First</Button>
-    <Button color={'primary'}>Second</Button>
-    <Button color={'primary'}>Third</Button>
-  </ButtonGroup>
-);
+const Template = ({ color, colorType, ...args }) => {
+  if (colorType === 'custom') {
+    return (
+      <ButtonGroup onChange={action('onButtonChange')} {...args}>
+        <Button color={color}>First</Button>
+        <Button color={color}>Second</Button>
+        <Button color={color}>Third</Button>
+      </ButtonGroup>
+    );
+  }
 
+  return (
+    <ButtonGroup onChange={action('onButtonChange')} {...args}>
+      <Button color={colorType}>First</Button>
+      <Button color={colorType}>Second</Button>
+      <Button color={colorType}>Third</Button>
+    </ButtonGroup>
+  );
+};
 
 export const Filled = Template.bind({});
 
@@ -23,16 +67,6 @@ export const FilledPill = Template.bind({});
 FilledPill.args = {
   round: true
 };
-
-export const FilledRadio = Template.bind({});
-FilledRadio.args = {
-  type: 'radio',
-};
-export const FilledToggle = Template.bind({});
-FilledToggle.args = {
-  type: 'toggle',
-};
-
 
 export const FilledDisabled = Template.bind({});
 FilledDisabled.args = {
@@ -65,16 +99,11 @@ OutlinedPill.args = {
   round: true
 };
 
-export const OutlinedRadio = Template.bind({});
-OutlinedRadio.args = {
-  ...Outlined.args,
-  type: 'radio',
-};
 
 export const OutlinedToggle = Template.bind({});
 OutlinedToggle.args = {
   ...Outlined.args,
-  type: 'toggle',
+  type: 'toggle'
 };
 
 export const OutlinedDisabled = Template.bind({});
@@ -112,18 +141,6 @@ FlatPill.args = {
   round: true
 };
 
-export const FlatRadio = Template.bind({});
-FlatRadio.args = {
-  ...Flat.args,
-  type: 'radio',
-};
-
-export const FlatToggle = Template.bind({});
-FlatToggle.args = {
-  ...Flat.args,
-  type: 'toggle',
-};
-
 export const FlatDisabled = Template.bind({});
 FlatDisabled.args = {
   ...Flat.args,
@@ -159,17 +176,6 @@ GradientPill.args = {
   round: true
 };
 
-export const GradientRadio = Template.bind({});
-GradientRadio.args = {
-  ...Gradient.args,
-  type: 'radio',
-};
-
-export const GradientToggle = Template.bind({});
-GradientToggle.args = {
-  ...Gradient.args,
-  type: 'toggle',
-};
 
 export const GradientDisabled = Template.bind({});
 GradientDisabled.args = {
@@ -200,17 +206,6 @@ ReliefPill.args = {
   pill: true
 };
 
-export const ReliefRadio = Template.bind({});
-ReliefRadio.args = {
-  ...Relief.args,
-  type: 'radio',
-};
-
-export const ReliefToggle = Template.bind({});
-ReliefToggle.args = {
-  ...Relief.args,
-  type: 'toggle',
-};
 
 export const ReliefDisabled = Template.bind({});
 ReliefDisabled.args = {
