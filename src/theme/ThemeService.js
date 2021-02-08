@@ -8,10 +8,10 @@ class ThemeService {
       ? chroma(baseTheme[color])
       : chroma(color);
     let baseTextColor =
-      baseColor.luminance() > 0.7 ? chroma('black') : chroma('white');
+      chroma.contrast(chroma('black'), baseColor) > 4.5  ? chroma('black') : chroma('white');
     if (baseTheme.text?.light && baseTheme.text?.dark) {
       baseTextColor =
-        baseColor.luminance() > 0.7
+        chroma.contrast(chroma(baseTheme.text.dark), baseColor) > 4.5
           ? chroma(baseTheme.text.dark)
           : chroma(baseTheme.text.light);
     }
@@ -38,7 +38,7 @@ class ThemeService {
     options.rippleColor = color.alpha(0.15).css();
     return options;
   };
-  
+
 }
 
 export default ThemeService;
