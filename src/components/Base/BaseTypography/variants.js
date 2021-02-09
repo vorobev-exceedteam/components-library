@@ -61,10 +61,6 @@ export const primaryVariant = css`
   font-size: 1.25rem;
 `;
 
-export const cardTextVariant = css`
-  color: ${({ baseColor }) => baseColor.hex()};
-  font-size: 1rem;
-`;
 
 export const getTypographyVariant = switchProp(
   prop('variant', 'primary'),
@@ -80,7 +76,6 @@ export const getTypographyVariant = switchProp(
     display3: display3Variant,
     display4: display4Variant,
     secondary: secondaryVariant,
-    'card-text': cardTextVariant,
     primary: primaryVariant
   },
   'primary'

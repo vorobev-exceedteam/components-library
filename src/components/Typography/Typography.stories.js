@@ -7,7 +7,7 @@ const Story = {
 
 const headings = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 const displays = ['display1', 'display2', 'display3', 'display4'];
-const others = ['secondary', 'default', 'card-text']
+const others = ['secondary', 'default']
 const colors = ['primary', 'secondary', 'success', 'info', 'danger', 'warning'];
 
 const Headings = (args) => (
