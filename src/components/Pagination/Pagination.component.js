@@ -11,32 +11,49 @@ const Pagination = ({
   toNextPageElement,
   toLastPageElement,
   nextPreviousButtons,
-  firstLastButtons
+  nextPreviousButtonsSeparated,
+  firstLastButtons,
+  firstLastButtonsSeparated,
+  pagesBeforeCollapse,
+  pagesWithinCollapse
 }) => {
   const totalPages = useMemo(() => Math.ceil(totalElements / limit) || 1, [
     totalElements,
     limit
   ]);
 
-  const validatePage = useMemo(
-    () => (page) => {
-      switch (true) {
-        case page > totalPages:
-          return totalPages;
-        case !page:
-        case page < 1:
-          return 1;
-        default:
-          return page;
-      }
-    },
-    [totalPages]
-  );
+  const validatePage = (page) => {
+    switch (true) {
+      case page > totalPages:
+        return totalPages;
+      case !page:
+      case page < 1:
+        return 1;
+      default:
+        return page;
+    }
+  };
 
   const [currentPage, setPage] = useState(validatePage(page));
 
   const changePage = (page) => () => {
-    setPage(validatePage(page));
+    switch (page) {
+      case 'collapseStart':
+        setPage(currentPage - pagesWithinCollapse - 1);
+        break;
+      case 'collapseFromStart':
+        setPage(pagesBeforeCollapse + 1);
+        break;
+      case 'collapseFromEnd':
+        setPage(totalPages - pagesBeforeCollapse);
+        break;
+      case 'collapseEnd':
+        setPage(currentPage + pagesWithinCollapse + 1);
+        break;
+      default:
+        setPage(validatePage(page));
+        break;
+    }
   };
 
   const toNextPage = useCallback(() => setPage(validatePage(currentPage + 1)), [
@@ -60,11 +77,42 @@ const Pagination = ({
 
   const pagesId = useMemo(() => {
     const pages = [];
-    for (let p = 1; p <= totalPages; p++) {
-      pages.push(p);
+    switch (true) {
+      case currentPage > pagesBeforeCollapse &&
+        totalPages - currentPage >= pagesBeforeCollapse:
+        pages.push('collapseStart');
+        for (
+          let p = currentPage - pagesWithinCollapse;
+          p <= currentPage + pagesWithinCollapse;
+          p++
+        ) {
+          pages.push(p);
+        }
+        pages.push('collapseEnd');
+        break;
+      case currentPage <= pagesBeforeCollapse &&
+        totalPages > pagesBeforeCollapse:
+        for (let p = 1; p <= pagesBeforeCollapse; ++p) {
+          pages.push(p);
+        }
+        pages.push('collapseFromStart');
+        break;
+      case currentPage > pagesBeforeCollapse &&
+        totalPages - currentPage < pagesBeforeCollapse:
+        pages.push('collapseFromEnd');
+        for (
+          let p = totalPages - pagesBeforeCollapse + 1;
+          p <= totalPages;
+          ++p
+        ) {
+          pages.push(p);
+        }
+        break;
+      default:
+        break;
     }
     return pages;
-  }, [totalPages]);
+  }, [totalPages, currentPage, pagesBeforeCollapse, pagesWithinCollapse]);
 
   useEffect(() => {
     if (currentPage > totalPages) {
@@ -72,31 +120,65 @@ const Pagination = ({
     }
   }, [setPage, totalPages, currentPage]);
 
-  return (
-    <BasePaginationBg>
-      {firstLastButtons ? (
+  const firstButton = useMemo(() => {
+    if (firstLastButtons) {
+      return (
         <BasePaginationButton
           onClick={toFirstPage}
           disabled={currentPage === 1}
         >
           {toFirstPageElement || 'First'}
         </BasePaginationButton>
-      ) : null}
-      {nextPreviousButtons ? (
+      );
+    }
+  }, [firstLastButtons, toFirstPage, currentPage, toFirstPageElement]);
+
+  const previousButton = useMemo(() => {
+    if (nextPreviousButtons) {
+      return (
         <BasePaginationButton onClick={toPrevPage} disabled={currentPage === 1}>
           {toPreviousPageElement || 'Previous'}
         </BasePaginationButton>
-      ) : null}
+      );
+    }
+  }, [nextPreviousButtons, toPrevPage, currentPage, toPreviousPageElement]);
 
-      {pagesId.map((page) => (
-        <BasePaginationButton
-          key={'page: ' + page}
-          active={currentPage === page}
-          onClick={changePage(page)}
-        >
-          {page}
-        </BasePaginationButton>
-      ))}
+
+
+
+  return (
+    <BasePaginationBg>
+      {firstButton}
+      {previousButton}
+
+        {pagesId.map((page) => {
+          console.log(page);
+          switch (page) {
+            case 'collapseFromStart':
+            case 'collapseStart':
+            case 'collapseEnd':
+            case 'collapseFromEnd':
+              return (
+                <BasePaginationButton
+                  key={'collapse: ' + page}
+                  onClick={changePage(page)}
+                >
+                  ...
+                </BasePaginationButton>
+              );
+            default:
+              return (
+                <BasePaginationButton
+                  key={'page: ' + page}
+                  active={currentPage === page}
+                  onClick={changePage(page)}
+                >
+                  {page}
+                </BasePaginationButton>
+              );
+          }
+        })}
+
 
       {nextPreviousButtons ? (
         <BasePaginationButton

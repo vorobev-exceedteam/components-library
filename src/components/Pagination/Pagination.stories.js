@@ -14,7 +14,19 @@ const Story = {
     },
     firstLastButtons: {
       defaultValue: true,
-      type: 'boolean',
+      type: 'boolean'
+    },
+    nextPreviousButtons: {
+      defaultValue: true,
+      type: 'boolean'
+    },
+    pagesBeforeCollapse: {
+      defaultValue: 5,
+      type: 'number'
+    },
+    pagesWithinCollapse: {
+      defaultValue: 1,
+      type: 'number'
     }
   }
 };
