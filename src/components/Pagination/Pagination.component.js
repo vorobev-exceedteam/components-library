@@ -4,6 +4,7 @@ import BasePaginationButton from '../Base/BasePagination/BasePaginationButton';
 
 const Pagination = ({
   page,
+  color,
   totalElements,
   limit,
   toFirstPageElement,
@@ -124,6 +125,7 @@ const Pagination = ({
     if (firstLastButtons) {
       return (
         <BasePaginationButton
+          color={color}
           onClick={toFirstPage}
           disabled={currentPage === 1}
         >
@@ -136,53 +138,56 @@ const Pagination = ({
   const previousButton = useMemo(() => {
     if (nextPreviousButtons) {
       return (
-        <BasePaginationButton onClick={toPrevPage} disabled={currentPage === 1}>
+        <BasePaginationButton
+          color={color}
+          onClick={toPrevPage}
+          disabled={currentPage === 1}
+        >
           {toPreviousPageElement || 'Previous'}
         </BasePaginationButton>
       );
     }
   }, [nextPreviousButtons, toPrevPage, currentPage, toPreviousPageElement]);
 
-
-
-
   return (
     <BasePaginationBg>
       {firstButton}
       {previousButton}
 
-        {pagesId.map((page) => {
-          console.log(page);
-          switch (page) {
-            case 'collapseFromStart':
-            case 'collapseStart':
-            case 'collapseEnd':
-            case 'collapseFromEnd':
-              return (
-                <BasePaginationButton
-                  key={'collapse: ' + page}
-                  onClick={changePage(page)}
-                >
-                  ...
-                </BasePaginationButton>
-              );
-            default:
-              return (
-                <BasePaginationButton
-                  key={'page: ' + page}
-                  active={currentPage === page}
-                  onClick={changePage(page)}
-                >
-                  {page}
-                </BasePaginationButton>
-              );
-          }
-        })}
-
+      {pagesId.map((page) => {
+        console.log(page);
+        switch (page) {
+          case 'collapseFromStart':
+          case 'collapseStart':
+          case 'collapseEnd':
+          case 'collapseFromEnd':
+            return (
+              <BasePaginationButton
+                color={color}
+                key={'collapse: ' + page}
+                onClick={changePage(page)}
+              >
+                ...
+              </BasePaginationButton>
+            );
+          default:
+            return (
+              <BasePaginationButton
+                color={color}
+                key={'page: ' + page}
+                active={currentPage === page}
+                onClick={changePage(page)}
+              >
+                {page}
+              </BasePaginationButton>
+            );
+        }
+      })}
 
       {nextPreviousButtons ? (
         <BasePaginationButton
           onClick={toNextPage}
+          color={color}
           disabled={currentPage === totalPages}
         >
           {toNextPageElement || 'Next'}
@@ -191,6 +196,7 @@ const Pagination = ({
       {firstLastButtons ? (
         <BasePaginationButton
           onClick={toLastPage}
+          color={color}
           disabled={currentPage === totalPages}
         >
           {toLastPageElement || 'Last'}

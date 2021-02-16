@@ -27,10 +27,37 @@ const Story = {
     pagesWithinCollapse: {
       defaultValue: 1,
       type: 'number'
+    },
+    color: {
+      control: 'color'
+    },
+    colorType: {
+      defaultValue: 'primary',
+      control: {
+        type: 'select',
+        options: [
+          'primary',
+          'secondary',
+          'info',
+          'success',
+          'danger',
+          'warning',
+          'dark',
+          'custom'
+        ]
+      }
     }
   }
 };
 
-export const Default = (args) => <Pagination {...args} />;
+export const Default = ({ color, colorType, ...args }) => {
+
+  let actualColor = colorType;
+  if (colorType === 'custom') {
+    actualColor = color
+  }
+
+  return <Pagination color={actualColor} {...args} />
+};
 
 export default Story;
