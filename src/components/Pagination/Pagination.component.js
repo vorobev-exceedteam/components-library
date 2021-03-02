@@ -121,9 +121,9 @@ const Pagination = ({
     }
   }, [setPage, totalPages, currentPage]);
 
-  const firstButton = useMemo(() => {
-    if (firstLastButtons) {
-      return (
+  return (
+    <BasePaginationBg>
+      {firstLastButtons ? (
         <BasePaginationButton
           color={color}
           onClick={toFirstPage}
@@ -131,13 +131,8 @@ const Pagination = ({
         >
           {toFirstPageElement || 'First'}
         </BasePaginationButton>
-      );
-    }
-  }, [firstLastButtons, toFirstPage, currentPage, toFirstPageElement]);
-
-  const previousButton = useMemo(() => {
-    if (nextPreviousButtons) {
-      return (
+      ) : null}
+      {nextPreviousButtons ? (
         <BasePaginationButton
           color={color}
           onClick={toPrevPage}
@@ -145,14 +140,7 @@ const Pagination = ({
         >
           {toPreviousPageElement || 'Previous'}
         </BasePaginationButton>
-      );
-    }
-  }, [nextPreviousButtons, toPrevPage, currentPage, toPreviousPageElement]);
-
-  return (
-    <BasePaginationBg>
-      {firstButton}
-      {previousButton}
+      ) : null}
 
       {pagesId.map((page) => {
         console.log(page);
